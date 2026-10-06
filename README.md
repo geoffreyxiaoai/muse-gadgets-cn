@@ -35,6 +35,7 @@
 - **ESP32-S3-BOX-3**、M5Stack CoreS3 / StickC Plus2 / Cardputer
 - **微雪（Waveshare）S3/C6 系列**、立创系 ideaspark、Seeed reTerminal
 - **Guition JC3248W535**（淘宝常见的廉价彩屏板，官方直接给了配置）
+- **M5Stack StopWatch** —— 社区 PR [#17](https://github.com/facebookincubator/muse-gadget-sdk/pull/17)（chantastic，10-03 已合并）：ESP32-S3R8 + 1.75 寸 466px 圆形 AMOLED 触摸屏，完整 UI（头像、一键通话、电池状态、OTA）。首个社区提交即合并的板型，说明官方对社区板型合并很积极
 - Home Assistant Voice、SenseCAP Watcher / Indicator、Seeed ReSpeaker Lite
 
 ---
@@ -100,6 +101,7 @@ bash install.sh --sdk-token mgst_…
 | Xteink 墨水屏 → 常亮 Muse 随身屏 | 开发者 Federico Viticci（媒体报道） | 转述，未实测 | 把电子墨水阅读器改成 Muse 状态屏，MagSafe 吸手机背面，翻面即看更新。低功耗常亮是墨水屏的天然优势，适合"看板"类场景 |
 | SenseCAP Watcher → 酒窖管家 | 社区开发者（媒体报道，约 $50 设备） | 转述，未实测 | 拍酒标识别酒庄年份，经 Tailscale 同步到个人酒窖系统，搭建不到 1 小时。说明"摄像头 + 本地网络 + Muse"是条很顺的 DIY 路线 |
 | M5Stack Core2 移植 | 官方仓库 Issue #9（社区提交） | 进行中，有坑 | 非官方支持板型的移植尝试：触摸按键映射错位导致配对确认按不下去、麦克风 GPIO 冲突采不到音。**避坑**：别拿冷门老开发板开局，先用官方配置清单里的板子 |
+| M5Stack StopWatch 板型支持 | 官方仓库 PR #17（社区开发者 chantastic，10-03 已合并） | 转述，未实测 | 首个社区提交即合并的完整板型：`sdkconfig` + `board_m5stack_stopwatch.c` + 工具链别名 + CI 构建矩阵一条龙，作者真机实测配对/Wi-Fi/对话全通。**抄作业价值**：想给自己的板子加官方支持，照这个 PR 的文件清单走 |
 | 官方灵感清单 | 官方仓库/媒体 | 待有人实测 | 彩色墨水屏晨报看板、HDMI 显示棒、带触摸屏的掌上终端、树莓派"家庭实验室 sysadmin" |
 
 想贡献你的 DIY？看 [projects/](projects/) 目录的投稿格式。
@@ -113,6 +115,9 @@ bash install.sh --sdk-token mgst_…
 | 2026-10-02 | Meta 开源 `facebookincubator/muse-gadget-sdk`（Apache 2.0）；Nat Friedman 宣布 Muse Home Link 首批 5000 台 |
 | 2026-10-03 | 社区 PR #12：语音回复改走文本通道——原因是服务器语音模型下线，gadget 端语音提问会收到 "Sorry, I ran into a problem while responding"，现改为 `output_modality: text` 文字转录+字幕显示。**实测影响**：现阶段别指望 gadget 直接语音播报 Muse 的回答，屏幕字幕是正道 |
 | 2026-10-03 | 社区 Issue #9：M5Stack Core2 非官方移植遇到配对/麦克风问题（见上表） |
+| 2026-10-03 | 社区 PR [#17](https://github.com/facebookincubator/muse-gadget-sdk/pull/17)：M5Stack StopWatch（完整 UI）板型支持已合并——首个社区提交的板型，维护者 anantn 当天跑完 CI 即合并；作者真机实测配对/Wi-Fi/对话全通（边缘触摸校准一项未测）。（2026-10-06 本仓库核实：PR 评论确认已合并，简报"review 中"已过时） |
+| 2026-10-05 | 官方仓库单日新增 4 个 issue（标题与内容 2026-10-06 本仓库已核实，均 open、暂无维护者回复）：[#99](https://github.com/facebookincubator/muse-gadget-sdk/issues/99) iPhone App 搜不到自制板（nRF Connect 正常）、[#101](https://github.com/facebookincubator/muse-gadget-sdk/issues/101) iPhone 配对卡在 `get_device_info` 循环、[#105](https://github.com/facebookincubator/muse-gadget-sdk/issues/105) 回复里的 emoji 无字形显示、[#106](https://github.com/facebookincubator/muse-gadget-sdk/issues/106) 回复里的 Markdown 原样显示。信号：**iOS 端配对/发现问题开始集中出现** |
+| 2026-10-05 | 社区 Issue [#14](https://github.com/facebookincubator/muse-gadget-sdk/issues/14) 追问语音回复路线图（接 PR #12，下线服务器语音模型后回复为纯文本）：问 Realtime Voice 或新 TTS 端点是否有计划；截至 2026-10-06 本仓库核实，维护者暂未回复（issue 本体更早，此为简报发现日） |
 | 2026-10-05 | 本仓库立项：中文圈首个实战向仓库（此前只有新闻报道） |
 
 > 仓库安全提示（第三方技术分析，非官方声明）：固件用仓库自带的 dev key 签名、Secure Boot 默认关闭、无设备 attestation，配对过程理论上可被中间人拦截。结论：**自玩可以，别拿它做正经产品或接敏感设备**。
@@ -128,7 +133,7 @@ A：申请 SDK Token 需要登录 gadgets.muse.ai，即需要 Muse 账号。国�
 A：不能。官方口径：仅限美国地区 Muse 订阅用户，每人限领一台，先到先得。国内玩家走 DIY 路线自己造，功能对等（Home Link 本身就是基于开源 ESP32 SDK 的）。
 
 **Q：gadget 能说中文吗？**
-A：官方文档未明确说明中文语音/文字支持情况，待实测。这是中文社区最该验证的一件事，欢迎第一个跑通的人来更新。
+A：官方文档未明确说明中文语音/文字支持情况，待实测。这是中文社区最该验证的一件事，欢迎第一个跑通的人来更新。另：社区 Issue [#14](https://github.com/facebookincubator/muse-gadget-sdk/issues/14) 在追问语音回复路线图（PR #12 下线服务器语音模型后回复为纯文本），维护者暂未回复——语音这事官方还没表态。
 
 **Q：刷机会变砖吗？**
 A：官方原话：副作用可能包括 bricked boards、voided warranties、brownouts。备好救砖方案（USB 转串口、按住 BOOT 进下载模式），别拿唯一的一块板子做实验。
