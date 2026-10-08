@@ -37,6 +37,9 @@
 - **Guition JC3248W535**（淘宝常见的廉价彩屏板，官方直接给了配置）
 - **M5Stack StopWatch** —— 社区 PR [#17](https://github.com/facebookincubator/muse-gadget-sdk/pull/17)（chantastic，10-03 已合并）：ESP32-S3R8 + 1.75 寸 466px 圆形 AMOLED 触摸屏，完整 UI（头像、一键通话、电池状态、OTA）。首个社区提交即合并的板型，说明官方对社区板型合并很积极
 - Home Assistant Voice、SenseCAP Watcher / Indicator、Seeed ReSpeaker Lite
+- **Waveshare ESP32-S3-Touch-AMOLED-2.16** —— 2.16 寸 480×480 圆形 AMOLED 全 UI（10-08 上 main，维护者直推；社区 PR #145 已关闭）。微雪圆屏家族第二块
+- **FoloToy AI Passport（ESP32-C3）** —— 已上 main（10-08，维护者直推；社区 PR #104 已关闭）。注意 C3 内存限制：无图片显示、无家庭网络隧道
+- **LCD7 7 寸屏** —— Muse 头像 UI 官方支持（PR #113，10-05 合并），补记
 
 ---
 
@@ -105,6 +108,8 @@ bash install.sh --sdk-token mgst_…
 | Xingzhi Cube 中文小方屏 | 官方仓库 PR #135（segasonicye，open） | 进行中，未合并 | 低成本 ESP32-S3 板，开箱即配 CJK 字体；引脚来自小智生态。**抄作业价值**：中文小屏板子想进官方支持，照这个 PR 的文件清单走 |
 | 墨水屏状态板（1.54 寸 e-paper） | 官方仓库 PR #130（zakcohen-work，open） | 进行中，未合并 | 呼应 Xteink 案例的"常亮看板"路线，但走官方板型支持；驱动复用小智 V2 同款屏 |
 | Core2 多 App 演示 UI | 官方仓库 PR #131（hfgong，open） | 进行中，未合并 | 在官方头像 UI 之外加触摸启动器示例，只读状态不碰语音链路。**抄作业价值**：想给板子做自定义界面的起点 |
+| "Muse Charm" DIY 复刻（M5StickS3） | hackernoon 文章，开源 github.com/zbruceli/kai（zbruceli） | 转述，未实测 | 48×24×15mm 钥匙扣大小，$21 的板子复刻官方 Charm：**双脑架构**——快路径 Gemini Live（~2 秒语音回答）处理大部分问题，慢路径 Hermes Agent（15–50 秒）做研究/记忆/日程，靠语音模型自己的工具选择做路由。**抄作业价值**：Charm 架构的完整实现参考，功耗/中继/双脑路由四个设计问题写得很透；注意它不完全走官方 SDK，是独立实现 |
+| Waveshare ESP32-S3-Touch-AMOLED-2.16 全 UI 板型 | 官方仓库 main（维护者直推，社区 PR #145 已关闭） | 转述，未实测 | 2.16 寸 480×480 圆形 AMOLED 完整 UI，微雪圆屏家族第二块。**抄作业价值**：圆屏 UI 的官方实现参考 |
 | 官方灵感清单 | 官方仓库/媒体 | 待有人实测 | 彩色墨水屏晨报看板、HDMI 显示棒、带触摸屏的掌上终端、树莓派"家庭实验室 sysadmin" |
 
 想贡献你的 DIY？看 [projects/](projects/) 目录的投稿格式。
@@ -132,7 +137,21 @@ bash install.sh --sdk-token mgst_…
 | 2026-10-07 | 社区 PR [#134](https://github.com/facebookincubator/muse-gadget-sdk/pull/134)（open）：**320×240 屏中文标题双行显示修复** + 可选 Noto Sans SC 抗锯齿中文字体（作者 longzhi）。信号：中文显示体验正在被中文社区开发者亲手打磨 |
 | 2026-10-07 | 社区 PR [#133](https://github.com/facebookincubator/muse-gadget-sdk/pull/133)（open）：**正点原子 ALIENTEK ATK-DNESP32S3-BOX V1.1** 板型支持（作者 longzhi）——国内品牌开发板首次出现在上游 PR；引脚参考 xiaozhi-esp32 的同名板型 |
 | 2026-10-05（补记） | 社区 PR [#98](https://github.com/facebookincubator/muse-gadget-sdk/pull/98)（open，上轮未收录）：Waveshare ESP32-S3-Touch-LCD-1.85B，带**中文 UI（简体，Fusion Pixel 字体）+ 手机配网门户**（作者 gxinxing）；附带一个实测坑：6 设备 I2C 总线用 400kHz 会掉包，降到 100kHz 解决 |
-| 2026-10-05（补记） | 社区 PR [#104](https://github.com/facebookincubator/muse-gadget-sdk/pull/104)（open，上轮未收录）：**FoloToy AI Passport（ESP32-C3）**板型支持（作者 gxinxing），无 PSRAM 的 8MB overlay；因内存限制不支持图片显示与家庭网络隧道——**避坑**：C3 这类小内存板子先看清功能取舍再下单 |
+| 2026-10-05（补记） | 社区 PR [#104](https://github.com/facebookincubator/muse-gadget-sdk/pull/104)（已上 main，社区 PR 已关闭）：**FoloToy AI Passport（ESP32-C3）**板型支持（作者 gxinxing），无 PSRAM 的 8MB overlay；因内存限制不支持图片显示与家庭网络隧道——**避坑**：C3 这类小内存板子先看清功能取舍再下单 |
+| 2026-10-07 | 社区 Issue [#137](https://github.com/facebookincubator/muse-gadget-sdk/issues/137)（open）：**华为手机（EMUI，如 P40）BLE 配对失败**——GATT 写永远到不了固件：App 能连上 BLE、加密和 MTU 协商都通，但 4 分钟发不出配对握手的第一个字节；**同一份固件在 Honor 400 Pro（MagicOS）上一次配对成功**，排除固件问题。信号：**华为/HarmonyOS 系手机与 Muse App 配对存在兼容坑**——国内玩家配对失败时，先换一部非华为系手机做排除法（或用电脑 Chrome Web Bluetooth 直连测试） |
+| 2026-10-07 | 社区 Issue [#143](https://github.com/facebookincubator/muse-gadget-sdk/issues/143)（open）：**树莓派 4 上装 Linux SDK 报错**（`musegadget` 安装过程 Python traceback）。信号：Linux 安装脚本在 Debian arm64 上的健壮性还需打磨，Pi 路线建议等官方修完再跟进 |
+| 2026-10-07 | 社区 PR [#132](https://github.com/facebookincubator/muse-gadget-sdk/pull/132)（open，作者 zakcohen-work 即 #130 墨水屏作者）：**缺 SDK Token 的报错做醒目提示**。接 #129 的 401 坑——以后配对失败第一眼就能看到是不是 token 的问题 |
+| 2026-10-07 | 社区 PR [#136](https://github.com/facebookincubator/muse-gadget-sdk/pull/136)（open）：**BLE 重组缓冲按消息大小动态分配**。接 #50/#51/#99/#101 的配对链路稳定性故事线——配对握手的可靠性还在被社区一点点修 |
+| 2026-10-07 | Linux SDK 大重构 PR 栈（作者 abhi，一次连发 5 个，全部 open）：[#138](https://github.com/facebookincubator/muse-gadget-sdk/pull/138) voice notes + spoken-reply 进 LinkSession、[#139](https://github.com/facebookincubator/muse-gadget-sdk/pull/139) chat 订阅 + 语音流式进 LinkSession、[#140](https://github.com/facebookincubator/muse-gadget-sdk/pull/140) MuseTurn（跟踪一次请求到 Muse 回复）、[#141](https://github.com/facebookincubator/muse-gadget-sdk/pull/141) pairing 移出 CLI 成 `pair.pair`、[#142](https://github.com/facebookincubator/muse-gadget-sdk/pull/142) 给基于 SDK 造 gadget 的开发者加 public hooks。信号：**Linux SDK 正在从"一个 CLI 工具"变成"可被二次开发的库"**——进阶 DIY 玩家的新分水岭 |
+| 2026-10-07 | 社区板型 PR 新成员（open）：[#112](https://github.com/facebookincubator/muse-gadget-sdk/pull/112) Waveshare ESP32-S3-Touch-LCD-1.85C、[#116](https://github.com/facebookincubator/muse-gadget-sdk/pull/116) Waveshare ESP32-S3-AUDIO-Board（作者 RogerHao）。微雪系板型持续加码 |
+| 2026-10-07 | 语音回复体验打磨（open）：[#115](https://github.com/facebookincubator/muse-gadget-sdk/pull/115) 超长回复被截断时明确标记 incomplete、[#117](https://github.com/facebookincubator/muse-gadget-sdk/pull/117) 语音留言可选"简短回复"偏好。接 #87 空回复、#121 语音留言不到设备的语音链路故事线 |
+| 2026-10-07 | 社区 PR [#144](https://github.com/facebookincubator/muse-gadget-sdk/pull/144)（open）：Seeed reTerminal E1002 的 SHT40 温湿度上报进 `device.health` 并启用 OTA。接下条 main 落地——**传感器路线在加码** |
+| 2026-10-08 | main 分支：**Linux 安全加固实质落地**，接 Issue #126 提案线——commit `5fb03bb2`：`file.write` 的部分文件保持私有权限、去掉 setuid 位；PR [#125](https://github.com/facebookincubator/muse-gadget-sdk/pull/125)（kartsan03）合并：`file.write` 替换文件时保留原 mode。提案正在变成代码，FAQ 的"Linux 那台机器安全吗"可更新为"加固进行中" |
+| 2026-10-08 | main 分支：**语音链路系统性修坑**——PR [#110](https://github.com/facebookincubator/muse-gadget-sdk/pull/110)（ramanxg）合并"语音 turn 保持开启直到 Muse 回复"（直接对 #87 空回复、#121 留言不到设备）、PR [#118](https://github.com/facebookincubator/muse-gadget-sdk/pull/118)（ViSaReVe）合并语音留言上传路径的 host 测试、commit `cafaad48`：被截断的超长语音 turn 明确失败而非静默。语音这块从"能用"走向"可靠" |
+| 2026-10-08 | main 分支：**环境传感器全板型上报**——commit `4addfff9`：`sensors.read` 在所有板型上报告环境传感器；reTerminal E100x 的 SHT4x 温湿度接入（PR [#120](https://github.com/facebookincubator/muse-gadget-sdk/pull/120)，bruceburge，已合并）。想做"酒窖管家"这类传感器 DIY 的，API 就绪了 |
+| 2026-10-08 | **FoloToy AI Passport 板型已上 main**：维护者直接提交 `85503524`（完整 UI）+ 当天 UI 修复 `62dd77af`（UP 键走菜单上移、关背光 console、收紧超长检查）；社区 PR [#104](https://github.com/facebookincubator/muse-gadget-sdk/pull/104)（gxinxing）已关闭（板型走维护者直推路线落地） |
+| 2026-10-08 | **Waveshare ESP32-S3-Touch-AMOLED-2.16 全 UI 板型已上 main**：维护者提交 `dc511680`（完整 UI：2.16 寸 480×480 圆形 AMOLED CO5300 + CST9220 触摸、ES8311 音频）+ 后续修复 `95755cbc`（通话键跟踪、跳过未轮询的 PWR 键）；社区 PR [#145](https://github.com/facebookincubator/muse-gadget-sdk/pull/145)（GEMISIS）已关闭未合并（板型走维护者直推落地） |
+| 2026-10-05（补记） | main 分支：**LCD7 7 寸屏支持**已落地（PR [#113](https://github.com/facebookincubator/muse-gadget-sdk/pull/113) 合并：Muse 头像 helper 支持 LCD7、头像画布适配、状态环对齐、硬件端口文档）。此前巡检未收录，补记 |
 
 > 仓库安全提示（第三方技术分析，非官方声明）：固件用仓库自带的 dev key 签名、Secure Boot 默认关闭、无设备 attestation，配对过程理论上可被中间人拦截。结论：**自玩可以，别拿它做正经产品或接敏感设备**。
 
@@ -149,14 +168,17 @@ A：不能。官方口径：仅限美国地区 Muse 订阅用户，每人限领�
 **Q：gadget 能说中文吗？**
 A：官方文档未明确说明中文语音/文字支持情况，待实测。这是中文社区最该验证的一件事，欢迎第一个跑通的人来更新。另：社区 Issue [#14](https://github.com/facebookincubator/muse-gadget-sdk/issues/14) 在追问语音回复路线图（PR #12 下线服务器语音模型后回复为纯文本），维护者暂未回复——语音这事官方还没表态。
 
+**Q：华为手机搜得到设备但配对不上，是什么情况？**
+A：社区 Issue [#137](https://github.com/facebookincubator/muse-gadget-sdk/issues/137)：华为 P40（EMUI）上 Muse App 能连 BLE、加密和 MTU 都正常，但配对握手 4 分钟发不出一个字节；同一份固件在 Honor 400 Pro（MagicOS）上一次成功。先换一部非华为系手机做排除法——**这是国内玩家配对的第一个坑**。
+
 **Q：SDK Token 刚申请，设备却报 401 / 配对时连不上云，是什么情况？**
-A：先别急着重刷固件——社区 10-06 有两例服务端侧异常：Issue [#129](https://github.com/facebookincubator/muse-gadget-sdk/issues/129) 新 token 在 `fetch_vms` 被 401 拒绝（旧 token 可用）；Issue [#127](https://github.com/facebookincubator/muse-gadget-sdk/issues/127) `/v1/noise` 升级 403 且 2 分钟后 token 被吊销（越南/美国 IP 均复现，作者怀疑地区 allowlist）。排查顺序：先确认 token 本身有效、再看云端连通性，最后才动本地配置。国内用户尤其注意云端连通这一环。
+A：先别急着重刷固件——社区 10-06 有两例服务端侧异常：Issue [#129](https://github.com/facebookincubator/muse-gadget-sdk/issues/129) 新 token 在 `fetch_vms` 被 401 拒绝（旧 token 可用）；Issue [#127](https://github.com/facebookincubator/muse-gadget-sdk/issues/127) `/v1/noise` 升级 403 且 2 分钟后 token 被吊销（越南/美国 IP 均复现，作者怀疑地区 allowlist）。排查顺序：先确认 token 本身有效、再看云端连通性，最后才动本地配置。国内用户尤其注意云端连通这一环。另：社区 PR [#132](https://github.com/facebookincubator/muse-gadget-sdk/pull/132) 正在做"缺 token 报错醒目提示"（未合并），以后这类问题第一眼就能定位。
 
 **Q：刷机会变砖吗？**
 A：官方原话：副作用可能包括 bricked boards、voided warranties、brownouts。备好救砖方案（USB 转串口、按住 BOOT 进下载模式），别拿唯一的一块板子做实验。
 
 **Q：Linux 那台机器安全吗？**
-A：Muse 拿到的是安装账号的完整权限。建议单独建一个低权限账号跑 `musegadget`，别直接用你的主力 sudo 账号。另：社区 Issue [#126](https://github.com/facebookincubator/muse-gadget-sdk/issues/126) 正在提案"可关闭内置命令 + 审计日志"的安全加固方案（未实现），落地前仍建议单独建低权限账号跑 `musegadget`。
+A：Muse 拿到的是安装账号的完整权限。建议单独建一个低权限账号跑 `musegadget`，别直接用你的主力 sudo 账号。另：社区 Issue [#126](https://github.com/facebookincubator/muse-gadget-sdk/issues/126) 正在提案"可关闭内置命令 + 审计日志"的安全加固方案（未实现），落地前仍建议单独建低权限账号跑 `musegadget`。另：2026-10-08 main 已实质落地加固——`file.write` 的部分文件保持私有权限并去掉 setuid 位（commit `5fb03bb2`），PR [#125](https://github.com/facebookincubator/muse-gadget-sdk/pull/125) 合并（替换文件保留原 mode）。Issue #126 的"可关闭内置命令 + 审计日志"提案正在变成代码，落地前仍建议低权限账号。
 
 **Q：这个仓库和官方是什么关系？**
 A：无任何官方关系。纯社区中文实战手册，内容错误请提 Issue/PR。
